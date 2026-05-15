@@ -45,4 +45,35 @@ describe('CounterPage', () => {
     fixture.detectChanges();
     expect(accountEl?.textContent).toBe(initialText);
   });
+
+  it('should have a Bootstrap card container', () => {
+    const fixture = TestBed.createComponent(CounterPage);
+    fixture.detectChanges();
+    const card = fixture.nativeElement.querySelector('.card');
+    expect(card).toBeTruthy();
+  });
+
+  it('should render title as a prominent heading', () => {
+    const fixture = TestBed.createComponent(CounterPage);
+    fixture.detectChanges();
+    const heading = fixture.nativeElement.querySelector('h1');
+    expect(heading).toBeTruthy();
+    expect(heading.classList).toContain('display-5');
+  });
+
+  it('should display counter value with a large display class', () => {
+    const fixture = TestBed.createComponent(CounterPage);
+    fixture.detectChanges();
+    const countEl = fixture.nativeElement.querySelector('.count');
+    expect(countEl).toBeTruthy();
+    expect(countEl.classList).toContain('display-1');
+  });
+
+  it('should style the increment button with Bootstrap btn classes', () => {
+    const fixture = TestBed.createComponent(CounterPage);
+    fixture.detectChanges();
+    const button = fixture.nativeElement.querySelector('button');
+    expect(button.classList).toContain('btn');
+    expect(button.classList).toContain('btn-primary');
+  });
 });
