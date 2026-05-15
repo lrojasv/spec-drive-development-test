@@ -76,4 +76,46 @@ describe('CounterPage', () => {
     expect(button.classList).toContain('btn');
     expect(button.classList).toContain('btn-primary');
   });
+
+  it('should render a decrement button to the right of the increment button', () => {
+    const fixture = TestBed.createComponent(CounterPage);
+    fixture.detectChanges();
+    const buttons = fixture.nativeElement.querySelectorAll('button');
+    expect(buttons.length).toBe(2);
+    expect(buttons[1].textContent).toContain('Decrement');
+  });
+
+  it('should decrement count to 0 after increment then decrement', () => {
+    const fixture = TestBed.createComponent(CounterPage);
+    fixture.detectChanges();
+    const [incrementBtn, decrementBtn] = fixture.nativeElement.querySelectorAll('button');
+    incrementBtn.click();
+    fixture.detectChanges();
+    decrementBtn.click();
+    expect(fixture.componentInstance.count).toBe(0);
+  });
+
+  it('should disable the decrement button when count is 0', () => {
+    const fixture = TestBed.createComponent(CounterPage);
+    fixture.detectChanges();
+    const decrementBtn = fixture.nativeElement.querySelectorAll('button')[1];
+    expect(decrementBtn.disabled).toBe(true);
+  });
+
+  it('should enable the decrement button when count is greater than 0', () => {
+    const fixture = TestBed.createComponent(CounterPage);
+    fixture.detectChanges();
+    const [incrementBtn, decrementBtn] = fixture.nativeElement.querySelectorAll('button');
+    incrementBtn.click();
+    fixture.detectChanges();
+    expect(decrementBtn.disabled).toBe(false);
+  });
+
+  it('should not go below 0 when decrement is clicked at count 0', () => {
+    const fixture = TestBed.createComponent(CounterPage);
+    fixture.componentInstance.count = 0;
+    fixture.componentInstance.decrement();
+    fixture.componentInstance.decrement();
+    expect(fixture.componentInstance.count).toBe(0);
+  });
 });

@@ -13,4 +13,8 @@ export class CounterPage {
   increment(): void {
     this.count++;
   }
+
+  decrement(): void {
+    if (this.count > 0) this.count--;
+  }
 }
